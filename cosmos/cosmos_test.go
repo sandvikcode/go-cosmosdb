@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"encoding/json"
+
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/require"
 	"github.com/vippsas/go-cosmosdb/cosmosapi"
@@ -85,7 +86,7 @@ func (mock *mockCosmos) GetDocument(ctx context.Context,
 }
 
 func (mock *mockCosmos) CreateDocument(ctx context.Context,
-	dbName, colName string, doc interface{}, ops cosmosapi.CreateDocumentOptions) (*cosmosapi.Resource, cosmosapi.DocumentResponse, error) {
+	dbName, colName string, id *string, doc interface{}, ops cosmosapi.CreateDocumentOptions) (*cosmosapi.Resource, cosmosapi.DocumentResponse, error) {
 	t := doc.(*MyModel)
 	mock.GotMethod = "create"
 	mock.GotPartitionKey = ops.PartitionKeyValue

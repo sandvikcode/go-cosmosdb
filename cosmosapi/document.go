@@ -73,11 +73,11 @@ func (ops CreateDocumentOptions) AsHeaders() (map[string]string, error) {
 	return headers, nil
 }
 
-func (c *Client) CreateDocument(ctx context.Context, dbName, colName string,
+func (c *Client) CreateDocument(ctx context.Context, dbName, colName string, id *string,
 	doc interface{}, ops CreateDocumentOptions) (*Resource, DocumentResponse, error) {
 
 	// add optional headers (after)
-	headers := map[string]string{}
+	var headers map[string]string
 	var err error
 	headers, err = ops.AsHeaders()
 	if err != nil {
@@ -85,6 +85,9 @@ func (c *Client) CreateDocument(ctx context.Context, dbName, colName string,
 	}
 
 	resource := &Resource{}
+	if id != nil {
+		resource.Id = *id
+	}
 	link := createDocsLink(dbName, colName)
 
 	response, err := c.create(ctx, link, doc, resource, headers)

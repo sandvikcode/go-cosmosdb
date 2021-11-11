@@ -59,7 +59,7 @@ func main() {
 	// Create a document without partition key
 	doc := ExampleDoc{Id: "aaa", Value: "666"}
 	ops := cosmosapi.CreateDocumentOptions{}
-	resource, _, err := client.CreateDocument(context.Background(), cfg.DbName, "batchstatuses", doc, ops)
+	resource, _, err := client.CreateDocument(context.Background(), cfg.DbName, "batchstatuses", nil, doc, ops)
 	if err != nil {
 		err = errors.WithStack(err)
 		fmt.Println(err)
@@ -73,7 +73,7 @@ func main() {
 		PartitionKeyValue: "asdf",
 		IsUpsert:          true,
 	}
-	resource, _, err = client.CreateDocument(context.Background(), cfg.DbName, "invoices", doc, ops)
+	resource, _, err = client.CreateDocument(context.Background(), cfg.DbName, "invoices", nil, doc, ops)
 	if err != nil {
 		err = errors.WithStack(err)
 		fmt.Println(err)
@@ -82,7 +82,7 @@ func main() {
 
 	// Create a document with partition key
 	fmt.Printf("\n CreateDocument with partition key.\n")
-	resource, _, err = client.CreateDocument(context.Background(), cfg.DbName, "invoices", doc, ops)
+	resource, _, err = client.CreateDocument(context.Background(), cfg.DbName, "invoices", nil, doc, ops)
 	if err != nil {
 		err = errors.WithStack(err)
 		fmt.Println(err)

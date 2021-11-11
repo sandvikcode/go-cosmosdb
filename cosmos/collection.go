@@ -166,7 +166,7 @@ func (c Collection) put(ctx context.Context, entityPtr Model, base BaseModel, pa
 			PartitionKeyValue: partitionValue,
 			IsUpsert:          !consistent,
 		}
-		resource, response, err = c.Client.CreateDocument(ctx, c.DbName, c.Name, entityPtr, opts)
+		resource, response, err = c.Client.CreateDocument(ctx, c.DbName, c.Name, nil, entityPtr, opts)
 		if consistent && errors.Cause(err) == cosmosapi.ErrConflict {
 			// For consistent creation with Etag="" we translate ErrConflict on creation to ErrPreconditionFailed
 			err = errors.WithStack(cosmosapi.ErrPreconditionFailed)
